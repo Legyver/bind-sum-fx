@@ -1,7 +1,6 @@
 package com.legyver.fx.bind.sum;
 
 import com.legyver.fx.bind.aware.SummablePropertyAware;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
@@ -12,12 +11,9 @@ import javafx.collections.ObservableList;
 
 public abstract class SumBinding<T extends Number> {
 
-	private final T initialValue;
 	protected final ObjectProperty<T> sum;
-	private final List<SummablePropertyAware<T>> knownElements = new ArrayList<>();
 
 	public SumBinding(T initialValue) {
-		this.initialValue = initialValue;
 		sum = new SimpleObjectProperty<>(SumBinding.this, "sum", initialValue);
 	}
 
