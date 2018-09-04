@@ -10,8 +10,13 @@ public class BigDecimalSumBinding extends SumBinding<BigDecimal> {
 	}
 
 	@Override
-	protected BigDecimal add(BigDecimal tally, BigDecimal value) {
-		return tally.add(value);
+	protected void add(BigDecimal value) {
+		sum.set(sum.get().add(value));
+	}
+
+	@Override
+	protected void subtract(BigDecimal value) {
+		sum.set(sum.get().subtract(value));
 	}
 
 	@Override
@@ -19,4 +24,5 @@ public class BigDecimalSumBinding extends SumBinding<BigDecimal> {
 		BigDecimal temp = sum.getValue().subtract(oldValue).add(newValue);
 		sum.set(temp);
 	}
+
 }

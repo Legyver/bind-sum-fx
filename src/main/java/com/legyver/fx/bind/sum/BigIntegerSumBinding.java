@@ -16,8 +16,13 @@ public class BigIntegerSumBinding extends SumBinding<BigInteger> {
 	}
 
 	@Override
-	protected BigInteger add(BigInteger tally, BigInteger value) {
-		return tally.add(value);
+	protected void add(BigInteger value) {
+		sum.set(sum.get().add(value));
 	}
 
+	@Override
+	protected void subtract(BigInteger value) {
+		sum.set(sum.get().subtract(value));
+	}
+	
 }

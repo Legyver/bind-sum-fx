@@ -68,6 +68,21 @@ public class BigDecimalSumBindingTest {
 		assertThat(sumBinding.getSum(), is(new BigDecimal(20.00)));
 	}
 
+	@Test
+	public void sumStaticSeparateAddsBigDecimal() {
+		SumBinding sumBinding = new BigDecimalSumBinding();
+		ObservableList<BigDecimalPropertyAware> list = FXCollections.observableArrayList();
+		sumBinding.bind(list);
+
+		BigDecimalPropertyAware awareA = set(new SimpleBigDecimalPropertyAware(), new BigDecimal(10.00));
+		BigDecimalPropertyAware awareB = set(new SimpleBigDecimalPropertyAware(), new BigDecimal(20.00));
+		list.add(awareA);
+		awareA.numberProperty().setValue(new BigDecimal(5.0));
+		list.add(awareB);
+		awareB.numberProperty().setValue(new BigDecimal(35.00));
+		assertThat(sumBinding.getSum(), is(new BigDecimal(40.00)));
+	}
+
 	private BigDecimalPropertyAware set(BigDecimalPropertyAware aware, BigDecimal decimal) {
 		aware.numberProperty().setValue(decimal);
 		return aware;

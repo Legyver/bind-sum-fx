@@ -67,6 +67,21 @@ public class BigIntegerSumBindingTest {
 		assertThat(sumBinding.getSum(), is(BigInteger.valueOf(20)));
 	}
 
+	@Test
+	public void sumStaticSeparateAddsBigInteger() {
+		SumBinding sumBinding = new BigIntegerSumBinding();
+		ObservableList<BigIntegerPropertyAware> list = FXCollections.observableArrayList();
+		sumBinding.bind(list);
+
+		BigIntegerPropertyAware awareA = set(new SimpleBigIntegerPropertyAware(), BigInteger.valueOf(10));
+		BigIntegerPropertyAware awareB = set(new SimpleBigIntegerPropertyAware(), BigInteger.valueOf(20));
+		list.add(awareA);
+		awareA.numberProperty().setValue(BigInteger.valueOf(5));
+		list.add(awareB);
+		awareB.numberProperty().setValue(BigInteger.valueOf(35));
+		assertThat(sumBinding.getSum(), is(BigInteger.valueOf(40)));
+	}
+
 	private BigIntegerPropertyAware set(BigIntegerPropertyAware aware, BigInteger decimal) {
 		aware.numberProperty().setValue(decimal);
 		return aware;
