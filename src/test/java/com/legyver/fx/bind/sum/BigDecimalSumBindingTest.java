@@ -1,10 +1,9 @@
 package com.legyver.fx.bind.sum;
 
 import com.legyver.fx.bind.aware.BigDecimalPropertyAware;
+import com.legyver.fx.bind.math.BigDecimalProperty;
+import com.legyver.fx.bind.math.MathProperty;
 import java.math.BigDecimal;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -90,10 +89,10 @@ public class BigDecimalSumBindingTest {
 
 	private class SimpleBigDecimalPropertyAware implements BigDecimalPropertyAware {
 
-		private final ObjectProperty<BigDecimal> property = new SimpleObjectProperty<>(SimpleBigDecimalPropertyAware.this, "property", BigDecimal.ZERO);
+		private final BigDecimalProperty property = new BigDecimalProperty();
 
 		@Override
-		public Property<BigDecimal> numberProperty() {
+		public MathProperty<BigDecimal> numberProperty() {
 			return property;
 		}
 	}

@@ -1,9 +1,9 @@
 package com.legyver.fx.bind.sum;
 
 import com.legyver.fx.bind.aware.BigIntegerPropertyAware;
+import com.legyver.fx.bind.math.BigIntegerProperty;
+import com.legyver.fx.bind.math.MathProperty;
 import java.math.BigInteger;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -89,10 +89,10 @@ public class BigIntegerSumBindingTest {
 
 	private class SimpleBigIntegerPropertyAware implements BigIntegerPropertyAware {
 
-		private final ObjectProperty<BigInteger> property = new SimpleObjectProperty<>(SimpleBigIntegerPropertyAware.this, "property", BigInteger.ZERO);
+		private final BigIntegerProperty property = new BigIntegerProperty();
 
 		@Override
-		public ObjectProperty<BigInteger> numberProperty() {
+		public MathProperty<BigInteger> numberProperty() {
 			return property;
 		}
 	}

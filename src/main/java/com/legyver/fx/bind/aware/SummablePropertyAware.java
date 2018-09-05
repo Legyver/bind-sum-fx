@@ -1,8 +1,8 @@
 package com.legyver.fx.bind.aware;
 
-import javafx.beans.property.Property;
+import com.legyver.fx.bind.math.MathProperty;
 
 public interface SummablePropertyAware<T extends Number> {
 
-	Property<T> numberProperty();
+	MathProperty<T> numberProperty();
 }

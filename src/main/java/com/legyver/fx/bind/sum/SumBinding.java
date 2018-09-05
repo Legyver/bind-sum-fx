@@ -1,28 +1,28 @@
 package com.legyver.fx.bind.sum;
 
 import com.legyver.fx.bind.aware.SummablePropertyAware;
+import com.legyver.fx.bind.math.MathProperty;
 import java.util.Iterator;
 import java.util.List;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 public abstract class SumBinding<T extends Number> {
 
-	protected final ObjectProperty<T> sum;
+	protected final MathProperty<T> sum;
 
-	public SumBinding(T initialValue) {
-		sum = new SimpleObjectProperty<>(SumBinding.this, "sum", initialValue);
+	protected SumBinding(MathProperty<T> mathProperty, T initialValue) {
+		sum = mathProperty;
+		sum.setValue(initialValue);
 	}
 
-	public ObjectProperty<T> sumProperty() {
+	public MathProperty<T> sumProperty() {
 		return sum;
 	}
 
 	public T getSum() {
-		return sum.get();
+		return sum.getValue();
 	}
 
 	public void bind(final ObservableList<SummablePropertyAware<T>> collection) {
