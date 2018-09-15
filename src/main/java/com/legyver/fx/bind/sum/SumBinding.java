@@ -26,6 +26,7 @@ public abstract class SumBinding<T extends Number> {
 	}
 
 	public void bind(final ObservableList<SummablePropertyAware<T>> collection) {
+		update(collection, false);
 		collection.addListener(this::onChanged);
 	}
 
@@ -33,6 +34,10 @@ public abstract class SumBinding<T extends Number> {
 		c.next();
 		boolean removal = c.getRemovedSize() > 0;
 		List<? extends SummablePropertyAware<T>> changedList = removal ? c.getRemoved() : c.getAddedSubList();
+		update((List<SummablePropertyAware<T>>) changedList, removal);
+	}
+
+	private void update(List<SummablePropertyAware<T>> changedList, boolean removal) {
 		for (Iterator<? extends SummablePropertyAware<T>> awareIt = changedList.iterator(); awareIt.hasNext();) {
 			SummablePropertyAware<T> aware = awareIt.next();
 
