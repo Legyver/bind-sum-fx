@@ -2,6 +2,7 @@ package com.legyver.fx.bind.multiply;
 
 import com.legyver.fx.bind.math.BigDecimalProperty;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
@@ -96,6 +97,22 @@ public class BigDecimalPropertyTest {
 
 		result.bindDivide(bigDecimal, negativeOne);//sumBinding.sumProperty()
 		assertThat(result.get(), is(new BigDecimal(-10.00)));
+	}
+
+	/**
+	 * test mechanism to avoid java.lang.ArithmeticException: Non-terminating
+	 * decimal expansion; no exact representable decimal result.
+	 */
+	@Test
+	public void divideInexact() {
+		BigDecimalProperty bigDecimal = new BigDecimalProperty();
+		BigDecimalProperty three = new BigDecimalProperty();
+		bigDecimal.set(BigDecimal.TEN);
+		three.set(new BigDecimal(3));
+		BigDecimalProperty result = new BigDecimalProperty();
+
+		result.bindDivide(bigDecimal, three, 2, RoundingMode.HALF_UP);//sumBinding.sumProperty()
+		assertThat(result.get().toPlainString(), is("3.33"));
 	}
 
 	@Test

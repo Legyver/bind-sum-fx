@@ -1,6 +1,7 @@
 package com.legyver.fx.bind.math;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 
@@ -32,6 +33,16 @@ public class BigDecimalProperty extends SimpleObjectProperty<BigDecimal> impleme
 		});
 		divisor.addListener((ObservableValue<? extends BigDecimal> observable1, BigDecimal oldValue, BigDecimal newValue) -> {
 			set(numerator.getValue().divide(newValue));
+		});
+	}
+
+	public void bindDivide(MathProperty<BigDecimal> numerator, MathProperty<BigDecimal> divisor, int scale, RoundingMode roundingMode) {
+		set(numerator.getValue().divide(divisor.getValue(), scale, roundingMode));
+		numerator.addListener((ObservableValue<? extends BigDecimal> observable1, BigDecimal oldValue, BigDecimal newValue) -> {
+			set(newValue.divide(divisor.getValue(), scale, roundingMode));
+		});
+		divisor.addListener((ObservableValue<? extends BigDecimal> observable1, BigDecimal oldValue, BigDecimal newValue) -> {
+			set(numerator.getValue().divide(newValue, scale, roundingMode));
 		});
 	}
 
